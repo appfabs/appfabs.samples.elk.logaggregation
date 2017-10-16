@@ -29,6 +29,15 @@ This is a sample repository for storing centralized configuration and access tho
 - run spring cloud config server first using java -jar spring-cloudconfig-0.1.jar. It will connect to git repository https://github.com/appfabs/appfabs.sample.springcloud-config-repo.git and fetch configurations.
 - spring-customer-service-0.1.jar and spring-supplier-service-0.1.jar can also be run using java -jar <jar_file.jar> options
 
+Now you can see that logs will be generating in three ways
+
+- Console Output
+- To log file. Refer /var/log/spring-customer-service.log and /var/log/spring-supplier-service.log
+- Sending to logstash via Socket
+
+Refer the logback-spring.xml file available in customer-service and supplier-service projects for the different configuration options.
+
+
 ## ELK Configurations
 
 Here giving Ubuntu 16.04 as our reference operating system to explain installation steps
