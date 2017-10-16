@@ -44,6 +44,7 @@ The default installation directory of elastic search is /usr/share/elasticsearch
 Example :
 
 network.host : 192.168.0.104
+
 http.port : 9200
 
 Starting the elastic search service using
@@ -68,6 +69,7 @@ server.host : 192.168.0.104
 server.port : 5601
 
 Starting Kibana Service
+
 `$ sudo service kibana start`
 
 Now pointed to your web-browser and type the address http://192.168.0.104:5601 will bring kibana web interface in front of you.
@@ -77,6 +79,7 @@ Now pointed to your web-browser and type the address http://192.168.0.104:5601 w
 Download latest Logstash from https://www.elastic.co/downloads/logstash 
 
 Then install the package using
+
 `$ sudo dpkg –i logstash-5.6.3.deb`
 
 Now the package is installed to /usr/share/logstash. Logstash configurations are available at /etc/logstash/. You can edit logstash.yml file and can enter a valid ip address in http.host property for remote access.
@@ -109,12 +112,40 @@ output {
 }
 ```
 
-*Running configuraion*
+**Running configuraion**
 
 In the terminal, goto /usr/share/Logstash. Enter the below command. 
 
 `$ bin/logstash –f appshield-log-configuration.conf`
 
+## Final Steps
+
+If all the ELK services are running correctly and the microservices running with sending logs, then the logstash terminal will be listed with json strings as shown below
+
+```
+{
+      "logfiledirectory" => "/var/log",
+                 "level" => "WARN",
+               "logfile" => "spring-customer-service.log",
+            "maxHistory" => "60",
+          "logstashhost" => "192.168.0.104:5043",
+           "maxFileSize" => "100MB",
+               "message" => "warn message slf4j",
+        "maxArchiveSize" => "10GB",
+            "@timestamp" => 2017-10-16T17:17:14.102Z,
+                  "port" => 15646,
+           "thread_name" => "main",
+           "level_value" => 30000,
+    "productionLogLevel" => "INFO",
+              "@version" => 1,
+                  "host" => "192.168.0.101",
+       "stagingLogLevel" => "INFO",
+           "logger_name" => "org.appfabs.sample.logaggregation.customer.service.CustomerService",
+           "devLogLevel" => "DEBUG"
+}
+```
+
+Now goto kibana and create index pattern using appfabs-logback*. Now the logs can be filtered using that pattern.
 
 
  
