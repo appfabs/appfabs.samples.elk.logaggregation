@@ -1,5 +1,7 @@
 # Centralized Log Aggregation & Visualization using ELK Stack for Micro service Architecture
 
+![alt text](https://github.com/appfabs/appfabs.samples.elk.logaggregation/blob/master/docs/architecture.png" Architecture")
+
 ## Source code part
 
 ### About source
