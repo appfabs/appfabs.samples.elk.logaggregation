@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<springProperty scope="context" name="logfiledirectory" source="logging.directory" defaultValue="/var/log"/> 
+	<springProperty scope="context" name="logfile" source="logging.spring-customer-service.file" defaultValue="spring-customer-service.log"/> 
+    <springProperty scope="context" name="logstashhost" source="logging.logstash.host" defaultValue="localhost:5043"/>
+    <springProperty scope="context" name="maxFileSize" source="logging.filesize.max" defaultValue="100MB"/>
+    <springProperty scope="context" name="maxArchiveSize" source="logging.archivesize.max" defaultValue="10GB"/>
+    <springProperty scope="context" name="maxHistory" source="logging.history.max" defaultValue="60"/>
+    <springProperty scope="context" name="devLogLevel" source="logging.dev.loglevel" defaultValue="DEBUG"/>
+    <springProperty scope="context" name="stagingLogLevel" source="logging.staging.loglevel" defaultValue="DEBUG"/>
+    <springProperty scope="context" name="productionLogLevel" source="logging.production.loglevel" defaultValue="INFO"/>
+    
+       
+	    <appender name="logStashAppender"
+			class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+			<destination>${logstashhost}</destination>
+			<!-- encoder is required -->
+			<encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+		</appender>
+	
+		<appender name="consoleOut" class="ch.qos.logback.core.ConsoleAppender">
+			<!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+				by default -->
+			<encoder>
+				<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+			</encoder>
+		</appender>
+		
+		<appender name="rolling"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>${logfiledirectory}/${logfile}</file>
+			<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+		      <!-- rollover daily -->
+		      <fileNamePattern>${logfile}-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+		       <!-- each file should be at most 100MB, keep 60 days worth of history, but at most 20GB -->
+		       <maxFileSize>${maxFileSize}</maxFileSize>    
+		       <maxHistory>${maxHistory}</maxHistory>
+		       <totalSizeCap>${maxArchiveSize}</totalSizeCap>
+		    </rollingPolicy>
+			<!-- <encoder class="net.logstash.logback.encoder.LogstashEncoder" /> -->
+			<encoder>
+				<pattern>%d{dd-MMM-yy HH:mm:ss.SSS} %-5level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+			</encoder>
+		</appender>
+
+	<springProfile name="dev"> 
+		<root level="${devLogLevel}">
+			<appender-ref ref="logStashAppender" />
+		</root>      
+		<logger name="org" level="${devLogLevel}">
+			<appender-ref ref="consoleOut" />
+		</logger>
+		<logger name="org.appfabs.sample.logaggregation" level="${devLogLevel}">
+			<appender-ref ref="rolling" />
+		</logger>
+	</springProfile>
+	
+	<springProfile name="staging"> 
+		<root level="${stagingLogLevel}">
+			<appender-ref ref="logStashAppender" />
+		</root>      
+		<logger name="org" level="${stagingLogLevel}">
+			<appender-ref ref="consoleOut" />
+		</logger>
+		<logger name="org.appfabs.sample.logaggregation" level="${stagingLogLevel}">
+			<appender-ref ref="rolling" />
+		</logger>
+	</springProfile>
+	
+	<springProfile name="production"> 
+		<root level="${productionLogLevel}">
+			<appender-ref ref="logStashAppender" />
+		</root>      
+		<logger name="org" level="${productionLogLevel}">
+			<appender-ref ref="consoleOut" />
+		</logger>
+		<logger name="org.appfabs.sample.logaggregation" level="${productionLogLevel}">
+			<appender-ref ref="rolling" />
+		</logger>
+	</springProfile>
+</configuration>

@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>appfabs.sample.logaggregation</groupId>
+  <artifactId>appfabs.sample.logaggregation</artifactId>
+  <version>0.1</version>
+  <packaging>pom</packaging>
+  <name>Appfab's sample log aggregator main parent project</name>
+  <description>Sample log aggregation main parent project</description>
+
+    <modules>
+        <module>spring-cloudconfig</module>
+		<module>spring-customer-service</module>
+		<module>spring-supplier-service</module>
+    </modules>      
+</project>
