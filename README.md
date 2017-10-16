@@ -11,6 +11,7 @@ This repository is holding sample source code for centralized configuration for 
 ### Spring Cloud Config Sample Repository
 
 https://github.com/appfabs/appfabs.sample.springcloud-config-repo.git
+
 This is a sample repository for storing centralized configuration and access those configurations using spring cloud config server. Those configuration will be available in a spring application as spring properties. 
 
 
@@ -147,7 +148,8 @@ If all the ELK services are running correctly and the microservices running with
 }
 ```
 
-Now goto kibana and create index pattern using appfabs-logback*. Now the logs can be filtered using that pattern.
+Now goto kibana and create index pattern using appfabs-logback*. All the logs will be available in this index pattern and you can start analyze your logs.
+
 
 
  
