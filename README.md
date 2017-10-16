@@ -1,6 +1,6 @@
 # Log Aggregation using ELK Stack
 
-##Centralized Log Aggregation & Visualization using ELK Stack for Micro service Architecture
+## Centralized Log Aggregation & Visualization using ELK Stack for Micro service Architecture
 
 This repository is holding sample source code for centralized configuration for micro service architecture using spring cloud and two micro services for retrieving those configurations. The config client applications (customer-service and supplier-service) using net.logstash.logback.appender.LogstashTcpSocketAppender for sending all the logs to a remote machine where logstash is running. The logstash redirect all logs to elastic search.
 
