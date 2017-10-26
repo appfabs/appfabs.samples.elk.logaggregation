@@ -1,3 +1,5 @@
+> This repository is for the source code part of the article https://appfabs.com/blog/2017/10/22/elk-log-aggregation.html. A miniature version of the article is explained here. Please visit the article and put your comments there.
+
 # Centralized Log Aggregation & Visualization using ELK Stack for Micro service Architecture
 
 ![alt text](https://github.com/appfabs/appfabs.samples.elk.logaggregation/blob/master/docs/architecture.png)
